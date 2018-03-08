@@ -14,6 +14,8 @@ when 'debian'
     dist = 'jessie'
   when 'kali'
     dist = 'wheezy'
+  when 'kali-rolling'
+    dist = 'stretch'
   else
     dist = node['lsb']['codename']
   end
