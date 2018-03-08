@@ -9,10 +9,21 @@ case node['platform_family']
 when 'debian'
   include_recipe 'apt'
 
+  case node['lsb']['codename']
+  when 'sana'
+    dist = 'jessie'
+  when 'kali'
+    dist = 'wheezy'
+  when 'kali-rolling'
+    dist = 'stretch'
+  else
+    dist = node['lsb']['codename']
+  end
+
   # Add TorProject.org repository
   apt_repository 'tor' do
     uri          'http://deb.torproject.org/torproject.org'
-    distribution node['lsb']['codename']
+    distribution dist
     components   ['main']
     keyserver    'keys.gnupg.net'
     key          'A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89'
